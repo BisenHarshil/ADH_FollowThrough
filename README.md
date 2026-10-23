@@ -7,7 +7,11 @@ Built for the Amazon Developer Hackathon 2026 — **Alexa+ simulated experience 
 Most commitments are made in passing: “I’ll send it tomorrow”, “remind me to call Meera on Monday”. They never reach a to-do list, so they slip. Follow-Through finds them, keeps the source sentence, and gives an assistant a useful task context.
 
 **Live demo:** https://adh-followthrough.onrender.com
+<<<<<<< HEAD
 **Demo video:** [add your public video link here]
+=======
+**Demo video:** [add your video link here]
+>>>>>>> ca57a5f9ef378ba1545ee40866bc94b78d8f7001
 
 ## Track fit
 
@@ -44,7 +48,7 @@ The simulator reads the signed-in user’s real browser task context, updates ta
 ## Run locally
 
 ```bash
-git clone https://github.com/<your-username>/follow-through.git
+git clone https://github.com/<your-username>/ADH_Follow-through.git
 cd follow-through
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\\Scripts\\activate
 pip install -r requirements.txt
