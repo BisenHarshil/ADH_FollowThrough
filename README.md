@@ -7,11 +7,7 @@ Built for the Amazon Developer Hackathon 2026 — **Alexa+ simulated experience 
 Most commitments are made in passing: “I’ll send it tomorrow”, “remind me to call Meera on Monday”. They never reach a to-do list, so they slip. Follow-Through finds them, keeps the source sentence, and gives an assistant a useful task context.
 
 **Live demo:** https://adh-followthrough.onrender.com
-<<<<<<< HEAD
-**Demo video:** [add your public video link here]
-=======
-**Demo video:** [add your video link here]
->>>>>>> ca57a5f9ef378ba1545ee40866bc94b78d8f7001
+**Demo video:** https://youtu.be/nnEPNQftJwI
 
 ## Track fit
 
