@@ -18,7 +18,8 @@
     <nav class="nav" aria-label="Primary navigation">
       <a href="/capture" class="nav-link{% if request.path == '/capture' %} is-active{% endif %}">Capture <span>01</span></a>
       <a href="/dashboard" class="nav-link{% if request.path == '/dashboard' %} is-active{% endif %}">Dashboard <span>02</span></a>
-      <a href="/history" class="nav-link{% if request.path == '/history' %} is-active{% endif %}">History <span>03</span></a>
+      <a href="/alexa-plus" class="nav-link{% if request.path == '/alexa-plus' %} is-active{% endif %}">Alexa+ <span>03</span></a>
+      <a href="/history" class="nav-link{% if request.path == '/history' %} is-active{% endif %}">History <span>04</span></a>
     </nav>
     <div class="topbar-tools"><span class="account-pill"><span class="status-dot"></span>{{ g.user.name or g.user.email or 'Account' }}</span><form class="inline-form" method="post" action="/logout"><button class="logout-link" type="submit">Log out</button></form><button class="icon-button" id="reset-demo" type="button" title="Reset local demo data" aria-label="Reset local demo data">↺</button></div>
     {% else %}
@@ -26,9 +27,9 @@
     {% endif %}
   </header>
   <main class="main-shell">{% block body %}{% endblock %}</main>
-  <footer class="site-footer"><div class="footer-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><strong>Follow—Through</strong><span class="muted">Keep the thread. Close the loop.</span></div><div class="footer-links"><span>Built for the Amazon Developer Hackathon</span><span>Bedrock-ready · Supabase-ready</span>{% if not g.user %}<a href="/login">Account access</a>{% endif %}</div></footer>
+  <footer class="site-footer"><div class="footer-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><strong>Follow—Through</strong><span class="muted">Keep the thread. Close the loop.</span></div><div class="footer-links"><span>Alexa+ simulated experience</span><span>Offline-first · Supabase-ready</span>{% if not g.user %}<a href="/login">Account access</a>{% endif %}</div></footer>
   <div id="toast" class="toast" role="status" aria-live="polite"></div><div id="confetti" aria-hidden="true"></div>
   <div class="modal-backdrop" id="quick-add-modal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="quick-add-title"><div class="modal-topline"><span class="eyebrow">New commitment</span><button class="icon-button" data-close-modal type="button" aria-label="Close">×</button></div><h2 id="quick-add-title">Put a promise on the record.</h2><p class="muted">A small task is easier to keep when it has a place to land.</p><form id="quick-add-form" class="modal-form"><label>Task <input name="title" required maxlength="160" placeholder="Send the revised brief"></label><div class="form-row"><label>Due <input name="due_date" type="date"></label><label>Person <input name="who" maxlength="60" placeholder="Rahul"></label></div><label>Priority <select name="priority"><option value="normal">Normal</option><option value="high">High</option></select></label><div class="modal-actions"><button class="button button-ghost" data-close-modal type="button">Cancel</button><button class="button button-primary" type="submit">Add commitment <span>↗</span></button></div></form></section></div>
-  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>{% block extra_scripts %}{% endblock %}
 </body>
 </html>

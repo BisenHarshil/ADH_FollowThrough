@@ -1,6 +1,6 @@
 <div class="server-result" data-engine="{{ engine }}">
   {% if tasks %}
-  <p class="result-success"><span class="success-dot"></span> Found {{ tasks|length }} follow-up{{ '' if tasks|length == 1 else 's' }} with {{ 'Amazon Bedrock' if engine == 'bedrock' else 'the offline rules extractor' }}.</p>
+  <p class="result-success"><span class="success-dot"></span> Found {{ tasks|length }} follow-up{{ '' if tasks|length == 1 else 's' }} with the offline rules engine.</p>
   <div class="result-items">
     {% for task in tasks %}
     <article class="result-item" data-task-title="{{ task.title }}" data-task-due="{{ task.due }}" data-task-date="{{ task.due_date }}" data-task-who="{{ task.who }}" data-task-priority="{{ task.priority }}" data-task-source="{{ task.source }}" data-task-server-id="{{ task.server_id }}">

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Alexa+ Simulator · Follow-Through{% endblock %}
+{% block body %}
+<section class="page-intro alexa-intro">
+  <div><p class="eyebrow"><span class="eyebrow-line"></span> Alexa+ / simulated experience</p><h1>Ask your follow-through.<em>It answers with action.</em></h1><p class="intro-copy">A web simulation of an Alexa+ experience: type or speak naturally, then let Follow-Through read your commitments, add a task, or close a loop.</p></div>
+  <div class="intro-aside"><span class="mini-label">Track fit</span><strong>Alexa+ simulated experience</strong><span class="muted">No hardware or personal data required.</span></div>
+</section>
+<section class="alexa-layout">
+  <section class="panel alexa-console">
+    <div class="panel-top"><div><span class="mini-label">Agent console</span><h2>What do you need?</h2></div><span class="engine-badge is-live"><span class="status-dot"></span>Ready</span></div>
+    <div class="command-chips"><button type="button" class="chip-button" data-alexa-command="What’s due today?">What’s due today?</button><button type="button" class="chip-button" data-alexa-command="What should I do next?">What should I do next?</button><button type="button" class="chip-button" data-alexa-command="Add: call Meera on Monday">Add a task</button><button type="button" class="chip-button" data-alexa-command="Read my open loops">Read my open loops</button></div>
+    <div id="alexa-thread" class="alexa-thread" aria-live="polite"><div class="alexa-message alexa-agent"><span class="message-mark">✦</span><div><strong>Alexa+ simulator</strong><p>Try “what’s due today?”, “add: call Meera on Monday”, or “mark the budget done.”</p></div></div></div>
+    <form id="alexa-form" class="alexa-form"><label for="alexa-input" class="sr-only">Ask the Alexa+ simulator</label><input id="alexa-input" autocomplete="off" placeholder="Ask Follow-Through anything…"><button type="button" id="alexa-mic" class="round-button" aria-label="Use voice input">⌁</button><button type="submit" class="button button-primary">Ask <span>↗</span></button></form>
+    <div id="alexa-status" class="alexa-status">Text mode ready · Voice input uses your browser when available.</div>
+  </section>
+  <aside class="utility-rail alexa-rail">
+    <section class="panel alexa-context"><div class="panel-top"><div><span class="mini-label">Live context</span><h2>Your open loops</h2></div><span id="alexa-task-count" class="group-count">0</span></div><div id="alexa-task-list" class="alexa-task-list"></div></section>
+    <section class="panel alexa-proof"><span class="mini-label">Why this fits Alexa+</span><h3>Natural language in. Useful action out.</h3><p>Follow-Through simulates an assistant experience on top of a real task context. The response is visible, actionable, and spoken back to the user.</p></section>
+  </aside>
+</section>
+{% endblock %}
+{% block extra_scripts %}<script src="{{ url_for('static', filename='alexa.js') }}"></script>{% endblock %}

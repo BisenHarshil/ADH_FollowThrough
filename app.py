@@ -1,7 +1,5 @@
-import ast
 import datetime as dt
 import functools
-import json
 import logging
 import os
 import re
@@ -178,29 +176,7 @@ def to_date(label):
     return ""
 
 
-# ---------- Extractor 1: Amazon Bedrock ----------
-def extract_bedrock(text):
-    import boto3
-    client = boto3.client("bedrock-runtime", region_name=os.getenv("AWS_REGION", "us-east-1"))
-    prompt = f"""Today is {dt.date.today():%A %d %B %Y}. Read the conversation and list every action item the person called Me now has to do.
-Return ONLY a JSON array. Each item has: "title" (short, starts with a verb), "due" (Today, Tomorrow, a weekday name, This week, Next week, or No date), "who" (person involved or an empty string), "priority" (high if due today/tomorrow/urgent, else normal), and "source" (the exact sentence).
-
-Conversation:
-{text}"""
-    response = client.converse(modelId=os.environ["BEDROCK_MODEL_ID"], messages=[{"role": "user", "content": [{"text": prompt}]}], inferenceConfig={"maxTokens": 1500, "temperature": 0})
-    output = response["output"]["message"]["content"][0]["text"]
-    output = output[output.find("["): output.rfind("]") + 1]
-    try:
-        parsed = json.loads(output)
-    except ValueError:  # model answered with a Python-style list instead of JSON
-        output = re.sub(r"\btrue\b", "True", output, flags=re.I)
-        output = re.sub(r"\bfalse\b", "False", output, flags=re.I)
-        output = re.sub(r"\bnull\b", "None", output, flags=re.I)
-        parsed = ast.literal_eval(output)
-    return [item for item in parsed if isinstance(item, dict)] if isinstance(parsed, list) else []
-
-
-# ---------- Extractor 2: simple rules (offline fallback) ----------
+# ---------- Offline rules extractor ----------
 RULES = [re.compile(pattern, re.I) for pattern in [r"\bi['’]ll\b", r"\bi will\b", r"\bi (also )?need to\b", r"\bremind me\b", r"\bdon['’]?t forget\b", r"\b(can|could) you\b", r"\bmake sure\b", r"\blet['’]s\b", r"\bwe (should|need to)\b"]]
 STRIP = [r"^(sure|okay|ok|yes|yeah|right|great|also|and|oh)[,!. ]+", r"^(can|could) you( please)?\s*", r"^(i['’]ll|i will|let me)\s*", r"^i (also )?(need|have|got) to\s*", r"^(please )?remind me to\s*", r"^don['’]?t forget to\s*", r"^we (should|need to)\s*", r"^make sure (to |that )?", r"^let['’]s\s*", r"^also\s+"]
 
@@ -284,20 +260,18 @@ def dashboard(): return render_template("dashboard.html")
 def history(): return render_template("history.html")
 
 
+@app.get("/alexa-plus")
+@login_required
+def alexa_plus(): return render_template("alexa_plus.html")
+
+
 @app.post("/api/analyze")
 @login_required
 def analyze():
     text = request.form.get("text", "").strip()[:20000]
     if not text: return '<p class="empty-state">Paste a conversation first.</p>', 400
     engine = "rules"
-    try:
-        if os.getenv("BEDROCK_MODEL_ID"):
-            found, engine = extract_bedrock(text), "bedrock"
-        else:
-            found = extract_rules(text)
-    except Exception as error:
-        app.logger.warning("Bedrock failed, using rules: %s", error)
-        found, engine = extract_rules(text), "rules"
+    found = extract_rules(text)
     tasks = normalize_tasks(found)
     archive_capture(text, engine, tasks)
     return render_template("partials/task_results.html", tasks=tasks, engine=engine)
