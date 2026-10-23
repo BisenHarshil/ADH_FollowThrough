@@ -6,7 +6,7 @@ Built for the Amazon Developer Hackathon 2026.
 
 Most commitments are made in passing: "I'll send it tomorrow", "remind me to call Meera on Monday". They never reach a to-do list, so they slip. Follow-Through finds them for you.
 
-**Live demo:** [add your Render URL here]
+**Live demo:** https://adh-followthrough.onrender.com
 **Demo video:** [add your video link here]
 
 <!-- Add 2-3 screenshots here: Capture, Dashboard, History -->
