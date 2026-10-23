@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Capture · Follow-Through{% endblock %}
+{% block body %}
+<section class="page-intro reveal"><div><p class="eyebrow"><span class="eyebrow-line"></span> Capture / 01</p><h1>Find the promises hiding in plain sight.</h1><p class="intro-copy">Paste a conversation. Follow-Through will pull out the commitments that belong to you, not the small talk around them.</p></div><div class="intro-aside"><span class="mini-label">Input mode</span><strong>Conversation → commitments</strong><span class="muted">Rules fallback is active</span></div></section>
+<section class="capture-layout">
+  <form class="capture-editor panel reveal" id="capture-form">
+    <div class="panel-top"><div><span class="mini-label">Transcript</span><h2>What was said?</h2></div><span class="kbd-hint">⌘ ↵ analyze</span></div>
+    <div class="sample-row"><span class="muted">Load a sample</span><button type="button" class="chip-button" data-sample="0">Work day</button><button type="button" class="chip-button" data-sample="1">At home</button><button type="button" class="chip-button" data-sample="2">Hackathon</button></div>
+    <textarea id="txt" name="text" aria-label="Conversation transcript" placeholder="Me: I’ll send the revised budget tomorrow..." required></textarea>
+    <div class="editor-foot"><span class="char-count" id="char-count">0 characters</span><button class="button button-primary" id="go" type="submit">Find follow-ups <span>↗</span></button></div>
+  </form>
+  <section class="results-panel reveal reveal-delay" aria-live="polite"><div class="panel-top"><div><span class="mini-label">Signal extraction</span><h2>Follow-ups found</h2></div><span class="engine-badge" id="engine-badge">Ready</span></div><div id="result-message" class="result-message">Your extracted commitments will land here with their source sentence attached.</div><div id="out" class="result-list"></div><a id="next" class="button button-ghost full-button" href="/dashboard" hidden>Open the dashboard <span>↗</span></a></section>
+</section>
+<section class="capture-note"><span class="note-mark">✳</span><p><strong>Bedrock-ready by design.</strong> Add your model ID in <code>.env</code> when you want richer intent extraction. The simple rules path keeps this demo reliable without credentials.</p></section>
+{% endblock %}

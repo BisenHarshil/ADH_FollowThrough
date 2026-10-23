@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}History · Follow-Through{% endblock %}
+{% block body %}
+<section class="page-intro reveal"><div><p class="eyebrow"><span class="eyebrow-line"></span> History / 03</p><h1>Patterns worth keeping.</h1><p class="intro-copy">A small audit trail of what you promised, what you closed, and who is still waiting on you.</p></div><div class="intro-aside history-aside"><span class="mini-label">Local archive</span><strong>Private to this browser</strong><span class="muted">Reset anytime from the top right</span></div></section>
+<section class="insight-grid" id="history-metrics"></section>
+<section class="history-layout"><div><div class="section-heading compact"><div><p class="eyebrow">Conversation archive</p><h2>Where the promises came from.</h2></div><span class="muted" id="history-count"></span></div><div id="conversation-list" class="conversation-list"></div></div><aside class="owed-card panel"><span class="mini-label">Open loops by person</span><h2>Who are you carrying?</h2><div id="owed-list"></div><p class="muted small-copy">Named people appear here when a commitment is still open.</p></aside></section>
+{% endblock %}

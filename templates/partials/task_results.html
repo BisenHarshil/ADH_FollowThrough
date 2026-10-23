@@ -1,0 +1,12 @@
+<div class="server-result" data-engine="{{ engine }}">
+  {% if tasks %}
+  <p class="result-success"><span class="success-dot"></span> Found {{ tasks|length }} follow-up{{ '' if tasks|length == 1 else 's' }} with {{ 'Amazon Bedrock' if engine == 'bedrock' else 'the offline rules extractor' }}.</p>
+  <div class="result-items">
+    {% for task in tasks %}
+    <article class="result-item" data-task-title="{{ task.title }}" data-task-due="{{ task.due }}" data-task-date="{{ task.due_date }}" data-task-who="{{ task.who }}" data-task-priority="{{ task.priority }}" data-task-source="{{ task.source }}" data-task-server-id="{{ task.server_id }}">
+      <span class="result-index">{{ '%02d'|format(loop.index) }}</span><div><strong>{{ task.title }}</strong><div class="result-meta"><span>{{ task.due }}</span>{% if task.who %}<span>{{ task.who }}</span>{% endif %}<span class="priority-{{ task.priority }}">{{ task.priority }}</span></div><q>{{ task.source }}</q></div>
+    </article>
+    {% endfor %}
+  </div>
+  {% else %}<div class="empty-state compact-empty"><span class="empty-mark">⌁</span><h3>No clear promise found.</h3><p>Try “I’ll…”, “remind me to…” or “don’t forget…”</p></div>{% endif %}
+</div>

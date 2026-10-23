@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Log in' if mode == 'login' else 'Register' }} · Follow-Through{% endblock %}
+{% block body %}
+<section class="auth-layout">
+  <div class="auth-story"><p class="eyebrow"><span class="eyebrow-line"></span> Follow-Through account</p><h1>{{ 'Keep your promises in one place.' if mode == 'login' else 'Make room for better follow-through.' }}</h1><p class="hero-lede">Your conversations, commitments, and closed loops belong to you. An account keeps your workspace separate from everyone else’s.</p><div class="auth-signal"><span class="auth-signal-mark">✦</span><div><strong>Private by default.</strong><span>Your password is stored as a secure hash, never as plain text.</span></div></div></div>
+  <section class="auth-card panel">
+    <span class="mini-label">{{ 'Welcome back' if mode == 'login' else 'Start here' }}</span>
+    <h2>{{ 'Log in to your workspace' if mode == 'login' else 'Create your workspace' }}</h2>
+    {% if error %}<div class="auth-error" role="alert">{{ error }}</div>{% endif %}
+    <form class="modal-form auth-form" method="post" action="{{ '/login' if mode == 'login' else '/register' }}" novalidate>
+      <input type="hidden" name="next" value="{{ next or '' }}">
+      {% if mode == 'register' %}<label>Name <input name="name" type="text" maxlength="60" autocomplete="name" value="{{ name or '' }}" placeholder="Asha"></label>{% endif %}
+      <label>Email <input name="email" type="email" required maxlength="254" autocomplete="email" value="{{ email or '' }}" placeholder="you@example.com" {% if error %}autofocus{% endif %}></label>
+      <label>Password <input name="password" type="password" required minlength="{{ 8 if mode == 'register' else 1 }}" maxlength="200" autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}" placeholder="{{ 'At least 8 characters' if mode == 'register' else 'Your password' }}"></label>
+      <button class="button button-primary auth-button" type="submit">{{ 'Log in' if mode == 'login' else 'Create account' }} <span>↗</span></button>
+    </form>
+    <div class="auth-switch">{{ 'New to Follow-Through?' if mode == 'login' else 'Already have an account?' }} <a href="{{ '/register' if mode == 'login' else '/login' }}{% if next %}?next={{ next|urlencode }}{% endif %}">{{ 'Register' if mode == 'login' else 'Log in' }}</a></div>
+  </section>
+</section>
+{% endblock %}

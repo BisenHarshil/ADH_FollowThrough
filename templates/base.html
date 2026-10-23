@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11110f">
+  <title>{% block title %}Follow-Through{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body data-page="{{ request.path.strip('/') or 'home' }}" data-user-id="{{ g.user.id if g.user else '' }}">
+  <div class="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Follow-Through home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Follow<span>—</span>Through</span></a>
+    {% if g.user %}
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="/capture" class="nav-link{% if request.path == '/capture' %} is-active{% endif %}">Capture <span>01</span></a>
+      <a href="/dashboard" class="nav-link{% if request.path == '/dashboard' %} is-active{% endif %}">Dashboard <span>02</span></a>
+      <a href="/history" class="nav-link{% if request.path == '/history' %} is-active{% endif %}">History <span>03</span></a>
+    </nav>
+    <div class="topbar-tools"><span class="account-pill"><span class="status-dot"></span>{{ g.user.name or g.user.email or 'Account' }}</span><form class="inline-form" method="post" action="/logout"><button class="logout-link" type="submit">Log out</button></form><button class="icon-button" id="reset-demo" type="button" title="Reset local demo data" aria-label="Reset local demo data">↺</button></div>
+    {% else %}
+    <div class="topbar-tools auth-tools"><a class="text-link" href="/login">Log in</a><a class="button button-primary button-small" href="/register">Register <span>↗</span></a></div>
+    {% endif %}
+  </header>
+  <main class="main-shell">{% block body %}{% endblock %}</main>
+  <footer class="site-footer"><div class="footer-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><strong>Follow—Through</strong><span class="muted">Keep the thread. Close the loop.</span></div><div class="footer-links"><span>Built for the Amazon Developer Hackathon</span><span>Bedrock-ready · Supabase-ready</span>{% if not g.user %}<a href="/login">Account access</a>{% endif %}</div></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div><div id="confetti" aria-hidden="true"></div>
+  <div class="modal-backdrop" id="quick-add-modal" hidden><section class="modal" role="dialog" aria-modal="true" aria-labelledby="quick-add-title"><div class="modal-topline"><span class="eyebrow">New commitment</span><button class="icon-button" data-close-modal type="button" aria-label="Close">×</button></div><h2 id="quick-add-title">Put a promise on the record.</h2><p class="muted">A small task is easier to keep when it has a place to land.</p><form id="quick-add-form" class="modal-form"><label>Task <input name="title" required maxlength="160" placeholder="Send the revised brief"></label><div class="form-row"><label>Due <input name="due_date" type="date"></label><label>Person <input name="who" maxlength="60" placeholder="Rahul"></label></div><label>Priority <select name="priority"><option value="normal">Normal</option><option value="high">High</option></select></label><div class="modal-actions"><button class="button button-ghost" data-close-modal type="button">Cancel</button><button class="button button-primary" type="submit">Add commitment <span>↗</span></button></div></form></section></div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

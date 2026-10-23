@@ -1,0 +1,5 @@
+flask
+gunicorn
+python-dotenv
+boto3
+supabase
